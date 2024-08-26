@@ -12,51 +12,59 @@
 # a instância criada do tipo pessoa deve ser atribuída a ele.
 
 class Pessoa:
-    def __init__(self,nome,identificacao,nacionalidade):
+    def __init__(self, nome, identificacao, nacionalidade):
         self.nome = nome
         self.id = identificacao
         self.nacionalidade = nacionalidade
-        
+
+    def __str__(self):
+        return f"{self.nome} ({self.nacionalidade})"
+
 class Conta:
-    def __init__(self,titular: Pessoa,saldo: float,tipo_conta: str,moeda: str):
+    def __init__(self, titular: Pessoa, saldo: float, tipo_conta: str, moeda: str):
         self.titular = titular
         self.saldo = saldo
         self.tipo_conta = tipo_conta
         self.moeda = moeda
-    
-    def depositar(self,valor):
-        self.saldo += valor
-        print("Depósito realizado com sucesso.")
-    
-    def sacar(self,valor):
-        if(valor <= self.saldo):
+
+    def depositar(self, valor):
+        if valor > 0:
+            self.saldo += valor
+            print("Depósito realizado com sucesso.")
+        else:
+            print("Valor de depósito inválido.")
+
+    def sacar(self, valor):
+        if valor > 0 and valor <= self.saldo:
             self.saldo -= valor
             print("Saque realizado com sucesso.")
         else:
-            print("Saldo insuficiente.")
-    
-    def transferir(self,valor,conta_destino):
-        if(valor <= self.saldo):
+            print("Saldo insuficiente ou valor de saque inválido.")
+
+    def transferir(self, valor, conta_destino):
+        if valor > 0 and valor <= self.saldo:
             self.saldo -= valor
             conta_destino.depositar(valor)
             print("Transferência realizada com sucesso.")
         else:
-            print("Saldo insuficiente.")
-    
+            print("Saldo insuficiente ou valor de transferência inválido.")
+
     def consultar_saldo(self):
-        print("Saldo atual: R$",self.saldo)
-    
+        print(f"Saldo atual: {self.moeda} {self.saldo:.2f}")
+
     def consultar_titular(self):
-        print("Titular da conta:",self.titular.nome)
-    
+        print(f"Titular da conta: {self.titular}")
+
     def consultar_tipo_conta(self):
-        print("Tipo de conta:",self.tipo_conta)
-        
+        print(f"Tipo de conta: {self.tipo_conta}")
+
     def consultar_moeda(self):
-        print("Moeda:",self.moeda)
-    
-pessoa1 = Pessoa("João","123456789","Brasileiro")
-conta1 = Conta(pessoa1,1000,"Corrente","Real")
+        print(f"Moeda: {self.moeda}")
+
+
+pessoa1 = Pessoa("João", "123456789", "Brasileiro")
+conta1 = Conta(pessoa1, 1000.0, "Corrente", "Real")
+
 
 conta1.consultar_titular()
 conta1.consultar_moeda()
