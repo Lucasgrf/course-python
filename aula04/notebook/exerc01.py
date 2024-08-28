@@ -21,6 +21,7 @@ class Disciplina:
         self.alunos.append(aluno)
     
     def listar_alunos(self):
+        print('\n', self)
         if not self.alunos:
             print('Nenhum aluno matriculado.')
         else:
@@ -40,7 +41,7 @@ while True:
         idade = int(input('Digite a idade do aluno: '))
         aluno = Aluno(nome, idade)
         disciplina.matricular(aluno)
-        print('\nAluno matriculado com sucesso!\n')
+        print('\nAluno matriculado com sucesso!')
         
     elif opcao == '2':
         disciplina.listar_alunos()
