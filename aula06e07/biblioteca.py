@@ -74,7 +74,7 @@ class MagicBooks:
     def pedir_livro(self, leitor: Leitor, termo: str):
         catalogo, resultados = self.buscar_livro(termo)
         if resultados:
-            livro = resultados[0]
+            livro = resultados[0] # Pega o primeiro resultado da lista
             if livro.disponivel:
                 livro.disponivel = False
                 leitor.ler_livro(livro)
